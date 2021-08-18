@@ -1,0 +1,15 @@
+<body>
+    <h2>ご注文受付のお知らせ</h2>
+    <p>以下の商品で注文を承りました。</p>
+    <p>---------------------------</p>
+    <p>受付日時：<%= @order.updated_at %></p>
+    <p>お届け先：<%= @order.address %></p>
+    <% @order.order_details.each do |detail| %>
+        <p>タイトル：<%= Book.find(detail.book_id).title %></p>
+        <p>数量：<%= detail.quantity %> 冊</p>
+    <% end %>
+    <p>----------------------------</p>
+</body>
+
+
+

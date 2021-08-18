@@ -1,0 +1,19 @@
+<%= if notice.present? %>
+    <div class="alert alert-success" role="alert">
+        <%= notice %>
+    </div>
+<% end %>
+
+<div class="row">
+    <div class="col-md-6">
+        <span class="text-muted"><%= User.human_attribute_name('name') %>:
+        </span><%= @user.name %>
+    </div>
+    <div class="col-md-6">
+        <span class="text-muted"><%= User.human_attribute_name('email') %>:
+        </span><%= @user.email %>
+    </div>
+</div>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

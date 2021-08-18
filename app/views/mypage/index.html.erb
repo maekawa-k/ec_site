@@ -1,0 +1,4 @@
+<h1>マイページ</h1>
+<p>ここはマイページです</p>
+<p>あなたのメールアドレスは<%= current_user.email %>です</p>
+<p><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></p>

@@ -1,0 +1,100 @@
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>申し込みフォームサンプル for Bootstrap · Bootstrap v5.0</title>
+
+    <link rel="canonical" href="https://getbootstrap.jp/docs/5.0/examples/checkout/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href=https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
+<meta name="theme-color" content="#7952b3">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <!-- Custom styles for this template -->
+  </head>
+  <body class="d-flex h-100 text-center text-white bg-dark">
+
+  <div class="container">
+  <main>
+    <div>
+      <h2>カートに追加する商品</h2><br>
+      <h5 class="agw_dt_book-ttl"><%= @product.title %></h5>
+      <p class="agw_dt_plice2"><%= @product.author %></p>
+      <p class="agw_dt_plice2"><%= number_to_currency @product.price, precision: 0, unit: "", format: "%u %n" %><span>円 （税込）</span></p>
+    </div>
+  </div>
+<br>
+
+<div class="col-12 col-md-3 sidebar-offcanvas" id="sidebar">
+  <div class="agw_side-cart_block">
+
+  <div class="text-center">
+    <%= form_with(model: @line_item, local: true) do |form| %>
+      <ul class="agw_side-cart_block_inner">
+      <div class="text-center">
+        <label for="colFormLabelSm" class="buy_ttl"><%= form.label :数量 %></label>
+        <label for="colFormLabelSm" class="buy_accounts"><strong><%= @line_item.quantity %>冊</strong></label>
+        <div class="col-sm-10">
+          <input type="hidden" class="form-control form-control-sm">
+        </div>
+      </div>
+      
+      <div class="text-center">
+        <label for="colFormLabelSm" class="buy_ttl"><%= form.label :商品合計 %></label>
+        <label for="colFormLabelSm" class="buy_accounts"><strong><%= number_to_currency @product.price * @order.quantity, precision: 0, unit: "", format: "%u %n" %>円</strong></label>
+        <div class="col-sm-10">
+          <input type="hidden" class="form-control form-control-sm">
+        </div>
+      </div>
+
+      <div class="text-center">
+        <label for="colFormLabelSm" class="buy_ttl"><%= form.label :総合計 %></label>
+        <label for="colFormLabelSm" class="buy_accounts"><strong><%= number_to_currency @product.price * @order.quantity, precision: 0, unit: "", format: "%u %n" %>円</strong></label>
+        <div class="col-sm-10">
+          <input type="hidden" class="form-control form-control-sm">
+        </div>
+      </div>
+
+      </ul>
+
+      <%= form.hidden_field :quantity, value: @line_item.quantity %>
+      <%= form.hidden_field :address, value: @line_item.address %>
+      <%= form.hidden_field :book_id, value: @line_item.book_id %>
+      <%= form.hidden_field :user_id, value: @line_item.cart_id %>
+      <%= form.submit "カートに入れる", class:"btn btn-danger btn-lg btn-block" %><br>
+    <% end %>
+    </div>
+  </div>
+</div>
