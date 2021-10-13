@@ -129,10 +129,19 @@
         <td><%= link_to '詳細', book %></td>
         <td><%= link_to '編集', edit_book_path(book) %></td>
         <td><%= link_to '削除', book, method: :delete, data: { confirm: '書籍を削除してもよろしいですか？' } %></td>
+	  <td><%= link_to 'ダウンロード', books_download_path(format: :csv) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+	<%=form_with(model: @book, url:books_upload_path, local: true) do |form| %>
+	<div class="fields">
+		<%=form.file_field :csv_file, id:'book_csv_file' %>	
+	</div>
+	<div class="action">
+		<%=form.submit %>
+	</div>
+	<% end %>
 </div>
 <br>  
     

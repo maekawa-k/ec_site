@@ -1,4 +1,5 @@
 class Book < ApplicationRecord
+    attr_accessor :csv_file
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
     has_many :line_items

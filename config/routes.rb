@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
+  get 'chat/index'
   get 'products/index'
 
   get 'products/show'
+
+  get '/books', to: 'books#index'
+  post 'books_upload', to: 'books#upload'
+
+  get 'books_download', to: 'books#download'
+
 
 
   devise_for :users

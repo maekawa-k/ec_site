@@ -1,3 +1,4 @@
+require 'csv'
 class BooksController < ApplicationController
   #before_action :authenticate_user!
   before_action :set_book, only: %i[ show edit update destroy ]
@@ -7,6 +8,8 @@ class BooksController < ApplicationController
     #@books = Book.all
     @q = Book.ransack params[:q]
     @books = @q.result
+    @book = Book.new
+    @books = Book.all
   end
 
   # GET /books/1 or /books/1.json
@@ -50,6 +53,28 @@ class BooksController < ApplicationController
       end
     end
   end
+	
+  def upload
+	csv_file = book_params[:csv_file]
+	CSV.foreach(csv_file.tempfile, encoding: "#{ __ENCODING__}:UTF-8") do |row|
+	Book.create(title: row[0], author: row[1])
+	end
+	redirect_to books_url
+
+  end
+
+  def download
+	csv_data = CSV.generate do |csv|
+		csv << ["タイトル", "著者"]
+		Book.pluck(:title, :author).each do |book|
+			csv << book
+		end
+	end
+	send_data csv_data, type:'text/csv', filename:'books.csv'
+  end
+
+
+
 
   # DELETE /books/1 or /books/1.json
   def destroy
@@ -68,6 +93,6 @@ class BooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.require(:book).permit(:title, :author, :published_on, :showing, :price, :picture, tag_ids: [])
+      params.require(:book).permit(:title, :author, :published_on, :showing, :price, :picture, :csv_file, tag_ids: [])
     end
 end

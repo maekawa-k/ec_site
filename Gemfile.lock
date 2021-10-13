@@ -249,6 +249,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   devise (= 4.6.0)
+  execjs
   font-awesome-sass
   jbuilder (~> 2.5)
   jquery-rails
